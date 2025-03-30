@@ -1,0 +1,6 @@
+.main-content {
+    padding: 2rem;
+    min-height: 100vh;
+    background-color: #121212; /* Dark background */
+    color: #ffffff;
+}

@@ -1,0 +1,39 @@
+.Favorites_empty {
+    text-align: center;
+    padding: 2rem;
+    background-color: #1f1f1f;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+}
+
+.Favorites_empty h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.Favorites_empty p {
+    font-size: 1.2rem;
+    color: #888;
+}
+
+.Manhwas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.remove-btn {
+    margin-top: 10px;
+    padding: 0.5rem 1rem;
+    background-color: #ff4500;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.remove-btn:hover {
+    background-color: #ff6347;
+}
