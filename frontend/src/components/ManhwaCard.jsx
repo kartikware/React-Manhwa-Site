@@ -1,9 +1,15 @@
 import "../css/ManhwaCard.css";
 import { useState, useEffect } from "react";
-import placeholderImage from "./placeholder.png"; // Import the placeholder image
+import placeholderImage from "./placeholder.png"; // Import the local placeholder image
 
 function ManhwaCard({ manhwa, onClick }) {
     const [isFavorite, setIsFavorite] = useState(false);
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+    // Skip non-Korean comics (just in case)
+    if (manhwa.attributes.originalLanguage !== "ko") {
+        return null;
+    }
 
     // Check if the manhwa is already in favorites
     useEffect(() => {
@@ -26,11 +32,13 @@ function ManhwaCard({ manhwa, onClick }) {
         }
     };
 
-    const imageUrl = manhwa.coverFileName
-        ? manhwa.coverFileName.startsWith("http")
-            ? manhwa.coverFileName
-            : `https://uploads.mangadex.org/covers/${manhwa.id}/${manhwa.coverFileName}.256.jpg`
-        : placeholderImage; // Use placeholder if no coverFileName is available
+    // Extract the cover_art relationship
+    const coverArt = manhwa.relationships?.find((rel) => rel.type === "cover_art");
+
+    // Construct the image URL
+    const imageUrl = coverArt
+        ? `https://uploads.mangadex.org/covers/${manhwa.id}/${coverArt.attributes.fileName}.256.jpg`
+        : placeholderImage; // Use the local placeholder image if cover_art is missing
 
     const genres = manhwa.attributes.tags
         ?.filter((tag) => tag.attributes.group === "genre")
@@ -40,10 +48,16 @@ function ManhwaCard({ manhwa, onClick }) {
     return (
         <div className="manhwa-card" onClick={onClick}>
             <div className="manhwa-poster">
+                {!isImageLoaded && <div className="image-placeholder">Loading...</div>}
                 <img
                     src={imageUrl}
                     alt={manhwa.attributes.title.en || "Unknown Title"}
-                    onError={(e) => (e.target.src = placeholderImage)} // Fallback to placeholder if loading fails
+                    onLoad={() => setIsImageLoaded(true)} // Set image as loaded
+                    onError={(e) => {
+                        e.target.src = placeholderImage; // Fallback to placeholder if loading fails
+                        setIsImageLoaded(true);
+                    }}
+                    style={{ display: isImageLoaded ? "block" : "none" }} // Hide image until loaded
                 />
                 <button
                     className={`favorite-btn-corner ${isFavorite ? "favorite" : ""}`}
