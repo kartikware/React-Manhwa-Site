@@ -4,6 +4,8 @@ import Spinner from "../components/Spinner";
 import { useState, useEffect } from "react";
 import React from "react";
 
+const API_URL = "http://localhost:5001/api/manga";
+
 function Home({ setResetHomeCallback }) {
     const [searchQuery, setSearchQuery] = useState(""); // Search input state
     const [manhwas, setManhwas] = useState([]); // List of manhwas
@@ -19,7 +21,12 @@ function Home({ setResetHomeCallback }) {
         try {
             const limit = 30; // Number of results per page
             const offset = (page - 1) * limit; // Calculate offset for pagination
-            const url = `https://api.mangadex.org/manga?title=${query}&limit=${limit}&offset=${offset}&contentRating[]=safe&contentRating[]=suggestive&originalLanguage[]=ko`;
+            const url = `${API_URL}?title=${query}&limit=${limit}&offset=${offset}&contentRating[]=safe&contentRating[]=suggestive&originalL
+            console.log("API URL:", url);
+anguage[
+            console.log("API URL:", url);
+]=ko`;
+
             console.log("API URL:", url);
 
             const response = await fetch(url);
@@ -37,29 +44,8 @@ function Home({ setResetHomeCallback }) {
                 return;
             }
 
-            // Fetch cover details for each manhwa
-            const manhwasWithCovers = await Promise.all(
-                data.data.map(async (manhwa) => {
-                    const coverArt = manhwa.relationships.find(
-                        (rel) => rel.type === "cover_art"
-                    );
-
-                    if (coverArt) {
-                        const coverResponse = await fetch(
-                            `https://api.mangadex.org/cover/${coverArt.id}`
-                        );
-                        const coverData = await coverResponse.json();
-                        manhwa.coverFileName = coverData.data.attributes.fileName;
-                    }
-
-                    return manhwa;
-                })
-            );
-
-            console.log("Processed Manhwas:", manhwasWithCovers);
-
             setManhwas((prevManhwas) =>
-                page === 1 ? manhwasWithCovers : [...prevManhwas, ...manhwasWithCovers]
+                page === 1 ? data.data : [...prevManhwas, ...data.data]
             );
         } catch (error) {
             console.error("Error fetching manhwas:", error);
