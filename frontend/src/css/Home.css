@@ -1,0 +1,97 @@
+.home {
+    padding: 2rem;
+}
+
+.search-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.search-input {
+    width: 300px;
+    padding: 0.5rem;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #1f1f1f;
+    color: #ffffff;
+}
+
+.search-input::placeholder {
+    color: #888;
+}
+
+.search-button {
+    margin-left: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #1e90ff;
+    color: #ffffff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #00bfff;
+}
+
+.Manhwas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.spinner {
+    margin: 2rem auto;
+}
+
+.reset-home-btn {
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #1e90ff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.reset-home-btn:hover {
+    background-color: #00bfff;
+}
+
+.go-to-top-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 0.5rem 1rem;
+    background-color: #1e90ff;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    z-index: 1000;
+}
+
+.go-to-top-btn:hover {
+    background-color: #00bfff;
+    transform: scale(1.1);
+}
+
+.search-button {
+    margin-left: 10px;
+    padding: 0.5rem 1rem;
+    background-color: #1e90ff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #00bfff;
+}
+
